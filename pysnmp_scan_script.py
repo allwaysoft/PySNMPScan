@@ -33,7 +33,7 @@ def snmp_devcie_scan(comnty, hostip, ):
             return varBinds
 
 mgmt_ip_list = []
-snmp_scanrange = netaddr.IPNetwork('172.16.1.100/24')
+snmp_scanrange = netaddr.IPNetwork('192.168.1.0/24')
 for ip in snmp_scanrange.iter_hosts():
     mgmt_ip_list.append(ip)
 
