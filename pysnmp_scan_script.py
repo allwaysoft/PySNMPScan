@@ -1,6 +1,7 @@
 
 from pysnmp.hlapi import *
 import netaddr
+import sys
 
 
 def snmp_devcie_scan(comnty, hostip, ):
@@ -33,7 +34,7 @@ def snmp_devcie_scan(comnty, hostip, ):
             return varBinds
 
 mgmt_ip_list = []
-snmp_scanrange = netaddr.IPNetwork('172.16.1.100/24')
+snmp_scanrange = netaddr.IPNetwork(sys.argv[1])
 for ip in snmp_scanrange.iter_hosts():
     mgmt_ip_list.append(ip)
 
@@ -41,7 +42,7 @@ snmpwalk_data = []
 for mgmtIP in mgmt_ip_list:
     # print str(mgmtIP)
     try:
-        snmp_raw_data = snmp_devcie_scan(comnty='public', hostip=str(mgmtIP))
+        snmp_raw_data = snmp_devcie_scan(comnty=sys.argv[2], hostip=str(mgmtIP))
         snmpscandata = {'sysname': str(snmp_raw_data[0][1]),
                         'sysdesc': str(snmp_raw_data[1][1]),
                         'sysuptime': str(snmp_raw_data[2][1]),
